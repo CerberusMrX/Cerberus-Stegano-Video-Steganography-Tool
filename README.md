@@ -1,6 +1,7 @@
-Cerberus Stegano
+# Cerberus Stegano
+
 CERBERUS SMASH!A video steganography tool for hiding and extracting text, images, or files in MP4 videos using Least Significant Bit (LSB) steganography. Features AES encryption, Hamming error correction, and support for any video resolution. Extracted text messages are displayed in the terminal, and files are saved to the extracted folder.
-Features
+# Features
 
 Hide Data: Embed text, images, or files in MP4 videos.
 Extract Data: Retrieve hidden data, with text printed to terminal and files saved.
@@ -15,7 +16,7 @@ User-Friendly: CLI with progress bars and "CERBERUS SMASH!" banner.
 
 
 
-Prerequisites
+# Prerequisites
 
 OS: Linux (tested on Kali Linux)
 Tools:
@@ -30,7 +31,7 @@ tqdm
 
 
 
-Installation
+# Installation
 
 Clone the Repository:
 git clone https://github.com/<your-username>/cerberus_stegano.git
@@ -49,7 +50,7 @@ pip install -r requirements.txt
 
 
 
-Usage
+# Usage
 Run video_steganography.py in hide or extract mode. See example_usage.sh for sample commands.
 Hide Data
 Hide a text message, image, or file in a video:
@@ -88,7 +89,7 @@ Debug: Text length: 112 bits
 Extracted secret message: Secret message
 Saved text to: extracted/extracted_text.txt
 
-Troubleshooting
+# Troubleshooting
 
 Error: Extraction stopped at bit_index=32:
 Cause: Corrupted stego_video.mp4 or frame indexing issue.
