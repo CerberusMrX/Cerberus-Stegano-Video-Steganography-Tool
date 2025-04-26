@@ -1,0 +1,4 @@
+opencv-python==4.5.5.64 
+pycryptodome==3.14.1 
+tqdm==4.64.0 
+numpy==1.22.4
