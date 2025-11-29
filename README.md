@@ -1,147 +1,181 @@
-# Cerberus Stegano
+# 😈 CERBERUS STEGANO 🎥
 
-CERBERUS SMASH!A video steganography tool for hiding and extracting text, images, or files in MP4 videos using Least Significant Bit (LSB) steganography. Features AES encryption, Hamming error correction, and support for any video resolution. Extracted text messages are displayed in the terminal, and files are saved to the extracted folder.
-# Features
+## Video Steganography with LSB, AES Encryption, and Hamming Correction
 
-Hide Data: Embed text, images, or files in MP4 videos.
-Extract Data: Retrieve hidden data, with text printed to terminal and files saved.
-Resolution Support: Works with any video resolution (e.g., 640x480, 1920x1080).
-Security: Optional AES encryption with password protection.
-Error Correction: Hamming codes for single-bit error correction (optional).
-User-Friendly: CLI with progress bars and "CERBERUS SMASH!" banner.
+**Cerberus Stegano** is a robust, command-line video steganography tool designed to **hide and extract text, images, or files** within **MP4 videos** using the **Least Significant Bit (LSB)** technique.
 
-![1](https://github.com/user-attachments/assets/66ddc737-8cbc-4b50-a142-7bc7e2fa3ee6)
+It provides critical security and integrity features, including optional **AES-256 encryption** for confidentiality and **Hamming error correction** for data resilience.
 
-![2](https://github.com/user-attachments/assets/430067c0-bf2e-4b7e-85df-3672847aff4f)
+> **Key Takeaway:** Hide sensitive data securely within any standard MP4 video, regardless of its resolution, with built-in encryption and error correction.
 
+---
 
+## ✨ Features
 
-# Prerequisites
+| Feature | Description |
+| :--- | :--- |
+| **Data Hiding** | Embed text, image, or any file type into an MP4 container. |
+| **Cross-Resolution** | Works seamlessly with **any video resolution** (e.g., 640x480, 1920x1080). |
+| **Security (Optional)** | Use **AES-256 encryption** with a password to secure hidden data. |
+| **Integrity (Optional)**| Apply **Hamming Codes** for **single-bit error correction** during extraction. |
+| **Output** | Extracted text is printed to the terminal; files/images are saved to an output directory. |
+| **Usability** | User-friendly Command-Line Interface (CLI) with **progress bars** for large files. |
 
-OS: Linux (tested on Kali Linux)
-Tools:
-Python 3.8+
-FFmpeg
-OpenCV (python3-opencv)
+---
 
+## 🛠️ Prerequisites
 
-Python Packages:
-PyCryptodome
-tqdm
+Cerberus Stegano is primarily tested on **Linux (Kali Linux)** environments.
 
+### System Dependencies
 
+You must have the following system tools installed:
 
-# Installation
+* **Python 3.8+**
+* **FFmpeg:** For video stream manipulation.
+* **OpenCV (`python3-opencv`):** For frame-by-frame image processing.
 
-Clone the Repository:
-git clone https://github.com/<your-username>/cerberus_stegano.git
+### Python Packages
+
+These packages are listed in `requirements.txt`:
+
+* `PyCryptodome` (for AES encryption)
+* `tqdm` (for progress bars)
+
+---
+
+## 🚀 Installation
+
+Follow these steps to get the project running locally.
+
+### 1. Clone the Repository
+
+```bash
+git clone [https://github.com/](https://github.com/)<your-username>/cerberus_stegano.git
 cd cerberus_stegano
+````
 
+### 2\. Install System Tools
 
-Set Up Virtual Environment:
-python3 -m venv venv
-source venv/bin/activate
+Make sure **FFmpeg** and **OpenCV** are available on your system.
 
-
-Install Dependencies:
+```bash
 sudo apt update
 sudo apt install -y python3-opencv ffmpeg
+```
+
+### 3\. Set Up and Install Python Dependencies
+
+It's highly recommended to use a virtual environment.
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
+```
 
+-----
 
+## 💻 Usage
 
-# Usage
-Run video_steganography.py in hide or extract mode. See example_usage.sh for sample commands.
-Hide Data
-Hide a text message, image, or file in a video:
-python video_steganography.py hide --input input.mp4 --output stego_video.mp4 --data-type text --data-input "Secret message" --no-hamming
+The main script is `video_steganography.py`. Run it in either `hide`, `extract`, or `capacity` mode.
 
+### 1\. Hide Data
 
---data-type: text, image, or file.
---no-hamming: Optional, disables Hamming encoding for simplicity.
-Enter a password (or leave empty for none).
+Embed a message, image, or file into your input video. **Use lossless encoding (`-c:v copy`)** on your video to minimize compression artifacts that can destroy the hidden LSB data.
 
-Extract Data
-Extract and display the hidden data:
-python video_steganography.py extract --input stego_video.mp4 --output-dir extracted --no-hamming
+```bash
+# General Syntax
+python video_steganography.py hide \
+  --input <input_video.mp4> \
+  --output <stego_video.mp4> \
+  --data-type <text|image|file> \
+  --data-input <"message" or path/to/file> \
+  [--no-hamming] # Optional: omit for Hamming correction
 
+# Example: Hiding a Text Message without Error Correction
+python video_steganography.py hide \
+  --input input.mp4 \
+  --output stego_video.mp4 \
+  --data-type text \
+  --data-input "Secret message" \
+  --no-hamming
+# PROMPT: Enter a password (or leave empty for none).
+```
 
-Text is printed to the terminal and saved to extracted/extracted_text.txt.
-Images/files are saved to extracted/extracted_file.<extension>.
-Enter the decryption password (or leave empty if none).
+### 2\. Extract Data
 
-Check Video Capacity
-Estimate the video’s data capacity:
+Retrieve the hidden data from the steganographic video.
+
+```bash
+# General Syntax
+python video_steganography.py extract \
+  --input <stego_video.mp4> \
+  --output-dir extracted \
+  [--no-hamming] # Must match the setting used during hiding
+
+# Example: Extracting the Text Message
+python video_steganography.py extract \
+  --input stego_video.mp4 \
+  --output-dir extracted \
+  --no-hamming
+# PROMPT: Enter the decryption password (or leave empty if none).
+```
+
+  * **Text Output:** Printed to the terminal and saved to `extracted/extracted_text.txt`.
+  * **File Output:** Saved to `extracted/extracted_file.<extension>`.
+
+### 3\. Check Video Capacity
+
+Estimate the maximum data size that can be hidden in a video.
+
+```bash
 python video_steganography.py --capacity --input input.mp4
+```
 
-Example
-# Hide text
-python video_steganography.py hide --input 1.mp4 --output stego_video.mp4 --data-type text --data-input "Secret message" --no-hamming
+-----
 
-# Extract text
-python video_steganography.py extract --input stego_video.mp4 --output-dir extracted --no-hamming
+## ⚙️ Troubleshooting LSB Corruption
 
-Output:
-CERBERUS SMASH!
-Total frames: 250, width=1920, height=1080
-Debug: Data type: TEXT
-Debug: Text length: 112 bits
-Extracted secret message: Secret message
-Saved text to: extracted/extracted_text.txt
+LSB steganography is highly sensitive to video compression. If extraction fails, the LSBs were likely altered by FFmpeg.
 
-# Troubleshooting
+| Error/Symptom | Probable Cause | Recommended Fix |
+| :--- | :--- | :--- |
+| **Invalid data type** or **Extraction stopped** | FFmpeg altered LSBs during hiding due to lossy encoding. | **Re-encode input video losslessly** before hiding: `ffmpeg -i 1.mp4 -c:v copy -c:a copy test_input.mp4` |
+| **No output file** | Invalid frame or pixel access due to uncommon video stream parameters. | **Re-encode to a standard resolution** (e.g., 640:480): `ffmpeg -i 1.mp4 -vf scale=640:480 -c:a copy low_res.mp4` |
+| **General Failure** | High data integrity requirement. | **Fallback:** Consider using a **DCT-based tool** like `SteganoTools` (see notes). |
 
-Error: Extraction stopped at bit_index=32:
-Cause: Corrupted stego_video.mp4 or frame indexing issue.
-Fix: Re-hide with a new video using -c:v copy:ffmpeg -i 1.mp4 -c:v copy -c:a copy test_input.mp4
-python video_steganography.py hide --input test_input.mp4 --output stego_video.mp4 --data-type text --data-input "Secret message" --no-hamming
+-----
 
+## 📂 Project Structure
 
-
-
-Error: Invalid data type 'm¶Ûm':
-Cause: LSBs altered by FFmpeg compression.
-Fix: Ensure lossless encoding (-c:v copy) and verify video integrity:ffprobe stego_video.mp4
-
-
-
-
-No output file:
-Check debug logs for Invalid frame or Invalid pixel access.
-Use a different video resolution or re-encode:ffmpeg -i 1.mp4 -vf scale=640:480 -c:a copy low_res.mp4
-
-
-
-
-Fallback: Use SteganoTools for reliable DCT-based steganography:pip3 install steganotools
-steganotools hide --input 1.mp4 --output stego_video.mp4 --data-type text --data "Secret message"
-steganotools extract --input stego_video.mp4 --output extracted/message.txt
-
-
-
-Project Structure
+```
 cerberus_stegano/
-├── video_steganography.py  # Main script
-├── README.md              # Documentation
-├── .gitignore             # Git ignore rules
-├── LICENSE                # MIT License
-├── requirements.txt        # Python dependencies
-├── example_usage.sh        # Example commands
-├── tests/                 # Test videos (optional)
-│   ├── test_640x480.mp4
-│   ├── test_1920x1080.mp4
+├── video_steganography.py  # ▶️ Main execution script
+├── requirements.txt        # 📦 Python dependencies
+├── example_usage.sh        # 📜 Sample usage commands
+├── README.md               # 📄 This documentation
+└── LICENSE                 # ⚖️ MIT License
+```
 
-License
-This project is licensed under the MIT License. See LICENSE for details.
-Contributing
-Contributions are welcome! Please submit a pull request or open an issue on GitHub.
-Author
+-----
 
-Sudeepa Wanigarathna
+## 🤝 Contributing
 
+We welcome contributions\! Please feel free to **open an issue** or submit a **Pull Request** on GitHub.
 
-Notes
+## ⚖️ License
 
-The tool uses LSB steganography, which may be affected by video compression. For production use, consider SteganoTools (DCT-based, Reed-Solomon error correction).
-Tested on Kali Linux with Python 3.8+, OpenCV 4.5.5, FFmpeg 4.4.
+This project is licensed under the **MIT License**. See the `LICENSE` file for details.
 
+## 👤 Author
+
+  * **Sudeepa Wanigarathna**
+
+-----
+
+## 💡 Notes on LSB Steganography
+
+**Caution:** This tool uses LSB steganography, which is susceptible to destruction by **lossy video compression**. For commercial or production use requiring higher reliability, consider **Discrete Cosine Transform (DCT)-based steganography** (like [SteganoTools](https://www.google.com/search?q=https://pypi.org/project/steganotools/)), which is generally more robust against re-encoding.
+
+*Tested on Kali Linux, Python 3.8+, OpenCV 4.5.5, FFmpeg 4.4.*
