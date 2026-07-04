@@ -170,7 +170,7 @@ This project is licensed under the **MIT License**. See the `LICENSE` file for d
 
 ## 👤 Author
 
-  * **Sudeepa Wanigarathna**
+  * **Sudeepa Wanigarathna powered by Serendibware**
 
 -----
 
