@@ -162,7 +162,7 @@ cerberus_stegano/
 
 ## 🤝 Contributing
 
-We welcome contributions\! Please feel free to **open an issue** or submit a **Pull Request** on GitHub.
+We welcome contributions\! Please feel free to **open an issue** or submit a **Pull Request** on GitHub thank you.
 
 ## ⚖️ License
 
